@@ -78,7 +78,7 @@ def sum_pro(pro,k):#每个省有多少个景点
               visual_text_color='#000', is_map_symbol_show=True, is_label_show=True)
     map.render( '各省'+k+'A景点分布.html')
     print(p)
-def huati(name,num,k):
+def huati(name,num,k):#看各级的销量
     kk=[]
     for i in range(len(name)):
         if not numpy.isnan(num[i]):
@@ -108,7 +108,7 @@ def huati(name,num,k):
              is_more_utils=True, is_label_show=True, is_datazoom_show=True, xaxis_rotate=45)
     page.add_chart(bar2)
     page.render(k+"A景区销量bar.html")
-def hottt(fivhot,fouhot,thrhot):
+def hottt(fivhot,fouhot,thrhot):#各级景区人气
     fiv, fou, th = [], [], []
     atts = ['0', '0.7', '0.8', '0.9', '1']
     for i in fivhot:
@@ -138,10 +138,7 @@ def hottt(fivhot,fouhot,thrhot):
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
     show(p)
-    #print(Counter(fiv))
-    #print(Counter(fou))
-    #print(Counter(th))
-def money(name,price,kk):
+def money(name,price,kk):#各级景区价格
     page=Page()
     k = []
     for i in range(len(name)):
@@ -172,17 +169,15 @@ def money(name,price,kk):
              is_more_utils=True, is_label_show=True, is_datazoom_show=True, xaxis_rotate=45)
     page.add_chart(bar2)
     page.render(kk+"A景区价格bar.html")
-def trans(city,name,pro,level):
+def trans(city,name,pro,level):#高德地图可视化
 
     for i in range(len(name)):
         x = pandas.DataFrame()
         t={}
         add = name[i]
         chengshi=city[i]
-        parameters = { 'address': add, 'key': '9c2084d0d553d8152ad0debe26375a4c','city':chengshi }
-        #parameters = { 'address': add, 'key': 'a39ec599c626b7d36a86acac00e7770b','city':city }
-        #parameters = {'address': add, 'key': '7bd8337737a853eef01ff35203cad272', 'city': chengshi}
-        html = requests.get('https://restapi.amap.com/v3/geocode/geo', params=parameters).json()
+        parameters = { 'address': add, 'key': '','city':chengshi }
+       html = requests.get('https://restapi.amap.com/v3/geocode/geo', params=parameters).json()
         print(html)
         try:
             t['jingwei'] = html['geocodes'][0]['location']
@@ -195,7 +190,7 @@ def trans(city,name,pro,level):
             t['city']=city[i]
             x = x.append(t, ignore_index=True)
             x.to_csv('55543.csv', encoding='utf-8', index=False, mode='a', header=False)
-def box(q,w,e,l):
+def box(q,w,e,l):#箱型图
     a = go.Box(y=q, name='5A景区')
     b = go.Box(y=w, name='4A景区')
     c = go.Box(y=e, name='3A景区')
@@ -224,10 +219,6 @@ def onebox(q,w,e,l):
     plt.boxplot([a, b, c, d],labels=['5','4','3','all scenic'],notch=True)
     fig = plt.figure()  # 创建画布
     ax = plt.subplot()  # 创建作图区域
-    #ax.boxplot(x, labels=['5'])
-    #data.boxplot()
-    #plt.ylabel("价格")
-    #plt.xlabel("景区等级")
     plt.show()
 def twobox(q,w,e,l):
     data = [q, w, e, l]
@@ -245,14 +236,9 @@ def twobox(q,w,e,l):
         if not numpy.isnan(l[i]):
             d.append(l[i])
     print(data)
-    # draw
     plt.boxplot([a, b, c, d],labels=['5','4','3','all scenic'],notch=True)
     fig = plt.figure()  # 创建画布
     ax = plt.subplot()  # 创建作图区域
-    #ax.boxplot(x, labels=['5'])
-    #data.boxplot()
-    #plt.ylabel("价格")
-    #plt.xlabel("景区等级")
     plt.show()
 def fivea(filename,k):
     qunae = pandas.read_csv(filename, engine='python', encoding='utf-8', header=None)
@@ -319,7 +305,6 @@ comment(com)
 #sum_pro(pro)
 #fivprice, fivnum,fivhot=fivea(filename,'5')
 #fouprice, founum,fouhot=foura(filename,'4')
-
 #thrprice, thrnum,thrhot=threea(filename,'3')
 #hottt(fivhot,fouhot,thrhot)
 #box(fivprice,fouprice,thrprice,price)
