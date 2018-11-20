@@ -302,7 +302,6 @@ def threea(filename,k):
     #print(level)
 pro,city,name,level,price,num,hot,com=read_data(filename)
 comment(com)
-#sum_pro(pro)
 #fivprice, fivnum,fivhot=fivea(filename,'5')
 #fouprice, founum,fouhot=foura(filename,'4')
 #thrprice, thrnum,thrhot=threea(filename,'3')
